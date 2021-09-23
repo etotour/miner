@@ -41,23 +41,10 @@ case "$BUILD_TYPE" in
         DOCKER_NAME="${BASE_DOCKER_NAME}-${IMAGE_ARCH}_testnet_${VERSION}"
         LATEST_TAG="latest-val-${IMAGE_ARCH}"
         ;;
-    "val_tpm")
-        echo "Doing a testnet validator with TPM image build for ${IMAGE_ARCH}"
-        DOCKER_BUILD_ARGS="--build-arg BUILDER_IMAGE=$BASE_IMAGE --build-arg RUNNER_IMAGE=$BASE_IMAGE --build-arg REBAR_BUILD_TARGET=docker_testval_tpm $DOCKER_BUILD_ARGS"
-        BASE_DOCKER_NAME="validator_tpm"
-        DOCKER_NAME="${BASE_DOCKER_NAME}-${IMAGE_ARCH}_testnet_${VERSION}"
-        LATEST_TAG="$MINER_REGISTRY_NAME:latest-val-tpm-${IMAGE_ARCH}"
-        ;;
     "validator")
         echo "Doing a mainnet validator image build for $IMAGE_ARCH"
         DOCKER_BUILD_ARGS="--build-arg BUILDER_IMAGE=${BUILD_IMAGE} --build-arg RUNNER_IMAGE=${RUN_IMAGE} --build-arg REBAR_BUILD_TARGET=docker_val ${DOCKER_BUILD_ARGS}"
         BASE_DOCKER_NAME="validator"
-        DOCKER_NAME="${BASE_DOCKER_NAME}-${IMAGE_ARCH}_${VERSION}"
-        ;;
-    "validator_tpm")
-        echo "Doing a mainnet validator with TPM image build for $IMAGE_ARCH"
-        DOCKER_BUILD_ARGS="--build-arg BUILDER_IMAGE=${BASE_IMAGE} --build-arg RUNNER_IMAGE=${BASE_IMAGE} --build-arg REBAR_BUILD_TARGET=docker_val_tpm ${DOCKER_BUILD_ARGS}"
-        BASE_DOCKER_NAME="validator_tpm"
         DOCKER_NAME="${BASE_DOCKER_NAME}-${IMAGE_ARCH}_${VERSION}"
         ;;
     "miner")
@@ -68,7 +55,7 @@ case "$BUILD_TYPE" in
         ;;
     "miner_tpm")
         echo "Doing a miner with TPM image build for ${IMAGE_ARCH}"
-        DOCKER_BUILD_ARGS="--build-arg EXTRA_BUILD_APK_PACKAGES=apk-tools --build-arg EXTRA_RUNNER_APK_PACKAGES=apk-tools --build-arg BUILDER_IMAGE=${BASE_IMAGE} --build-arg RUNNER_IMAGE=${BASE_IMAGE} --build-arg REBAR_BUILD_TARGET=docker_tpm ${DOCKER_BUILD_ARGS}"
+        DOCKER_BUILD_ARGS="--build-arg EXTRA_BUILD_APK_PACKAGES=\"apk-tools tpm2-tss-dev\"  --build-arg EXTRA_RUNNER_APK_PACKAGES=\"apk-tools tpm2-tss-esys tpm2-tss-fapi tpm2-tss-mu tpm2-tss-rc tpm2-tss-tcti-device\" --build-arg BUILDER_IMAGE=${BASE_IMAGE} --build-arg RUNNER_IMAGE=${BASE_IMAGE} --build-arg REBAR_BUILD_TARGET=docker_tpm ${DOCKER_BUILD_ARGS}"
         BASE_DOCKER_NAME="$(basename $(pwd))_tpm"
         DOCKER_NAME="${BASE_DOCKER_NAME}-${IMAGE_ARCH}_${VERSION}"
         ;;
