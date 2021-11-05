@@ -36,6 +36,7 @@ steps:
       REGISTRY_NAME: "validator"
       IMAGE_ARCH: "amd64"
       BUILD_TYPE: "validator"
+      BUILD_NET: "mainnet"
     agents:
       queue: "erlang"
     commands:
@@ -49,6 +50,7 @@ steps:
       REGISTRY_NAME: "validator"
       IMAGE_ARCH: "arm64"
       BUILD_TYPE: "validator"
+      BUILD_NET: "mainnet"
     agents:
       queue: "arm64"
     commands:
@@ -62,6 +64,7 @@ steps:
       REGISTRY_NAME: "validator"
       IMAGE_ARCH: "amd64"
       BUILD_TYPE: "val"
+      BUILD_NET: "testnet"
     agents:
       queue: "erlang"
     commands:
@@ -75,6 +78,7 @@ steps:
       REGISTRY_NAME: "validator"
       IMAGE_ARCH: "arm64"
       BUILD_TYPE: "val"
+      BUILD_NET: "testnet"
     agents:
       queue: "arm64"
     commands:
@@ -88,6 +92,7 @@ steps:
       REGISTRY_NAME: "miner"
       IMAGE_ARCH: "amd64"
       BUILD_TYPE: "miner"
+      BUILD_NET: "mainnet"
     agents:
       queue: "erlang"
     commands:
@@ -103,6 +108,7 @@ steps:
       REGISTRY_NAME: "miner"
       IMAGE_ARCH: "arm64"
       BUILD_TYPE: "miner"
+      BUILD_NET: "mainnet"
     commands:
       - "git fetch -t"
       - ".buildkite/scripts/make_image.sh"
