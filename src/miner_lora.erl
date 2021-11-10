@@ -687,11 +687,13 @@ send_to_router(Type, RoutingInfo, Packet, Region) ->
 country_code_for_addr(Addr)->
     B58Addr = libp2p_crypto:bin_to_b58(Addr),
     URL = "https://testnet-api.helium.wtf/v1/hotspots/" ++ B58Addr,
+    lager:info("request URL: ",[URL]),
     case httpc:request(get, {URL, []}, [{timeout, 5000}],[]) of
         {ok, {{_HTTPVersion, 200, _RespBody}, _Headers, JSONBody}} = Resp ->
-            lager:debug("hotspot info response: ~p", [Resp]),
+            lager:info("hotspot info response: ~p", [Resp]),
             %% body will be a list of geocode info of which one key will be the country code
             Body = jsx:decode(list_to_binary(JSONBody), [return_maps]),
+            lager:info("body: ~p", [Body]),
             %% return the country code from the returned response
             CC = maps:get(<<"short_country">>, maps:get(<<"geocode">>, maps:get(<<"data">>, Body)), undefined),
             {ok, CC};
