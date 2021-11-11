@@ -50,8 +50,8 @@
 -define(RECEIVING_TIMEOUT, 10).
 -define(RECEIPTS_TIMEOUT, 10).
 -else.
--define(RECEIVING_TIMEOUT, 20).
--define(RECEIPTS_TIMEOUT, 20).
+-define(RECEIVING_TIMEOUT, 15).
+-define(RECEIPTS_TIMEOUT, 15).
 -endif.
 -define(STATE_FILE, "miner_poc_statem.state").
 -define(POC_RESTARTS, 3).
